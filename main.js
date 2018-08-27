@@ -36,7 +36,7 @@ const renderPosts = function () {
 }
 
 
-$('.remove').on('click', function () {
+$('.posts').on('click', '.remove', function () {
     let id = $(this).closest(".post").data("id");
     removePost(id);
     renderPosts();
