@@ -30,7 +30,7 @@ const removePost = function (id) {
 const renderPosts = function () {
     $('.posts').empty();
     for (let i = 0; i < posts.length; i++) {
-        $('.posts').append($('<p class="post" data-id=' + posts[i].id + '>' + posts[i].text + "      " + '<button type="button" class="remove">REMOVE</button>' + '</p>'))
+        $('.posts').append($('<p class="post" data-id=' + posts[i].id + '>' + posts[i].text + "      " + '<a href=# class="remove">REMOVE</a>' + '</p>'))
     }
 
 }
