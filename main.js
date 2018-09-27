@@ -80,19 +80,20 @@ var SpacebookApp = function () {
 
     createComment: function (text, postID) {
       let comment = {
-        text: text
+        text: text,
+        id: id
       }
       this._findPostById(postID).comments.push(comment)
-      
+    },
+
+    removeComment: function () { //TODO
       
     },
-    removeComment: function () {
-      //TODO
-    },
+
     getCommentsHTML: function (post) {
       let strComment = "";
       for (let i = 0; i < post.comments.length; i++) {
-        strComment += '<li>' +post.comments[i].text + '</li>'
+        strComment += '<li>' + post.comments[i].text + '  <a href="#" class="remove-comment">remove</a>' + '</li>'
       }
       return strComment;
     }
