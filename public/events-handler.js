@@ -17,9 +17,10 @@ class EventsHandler {
             if ($input.val() === "") {
                 alert("Please enter text!"); 
             } else {
-                this.postsRepository.addPost($input.val());
-                this.postsRenderer.renderPosts(this.postsRepository.posts);
-                $input.val("");
+                this.postsRepository.addPost($input.val()).then(()=>{
+                    this.postsRenderer.renderPosts(this.postsRepository.posts);
+                    $input.val("");
+                });
             }
             });        
     }
@@ -27,8 +28,9 @@ class EventsHandler {
     registerRemovePost() {
         this.$posts.on('click', '.remove-post', (event) => {
             let index = $(event.currentTarget).closest('.post').index();;
-            this.postsRepository.removePost(index);
-            this.postsRenderer.renderPosts(this.postsRepository.posts);
+            this.postsRepository.removePost(index).then(()=>{
+                this.postsRenderer.renderPosts(this.postsRepository.posts);
+            })
           });
 
     }
@@ -53,10 +55,11 @@ class EventsHandler {
             let postIndex = $(event.currentTarget).closest('.post').index();
             let newComment = { text: $comment.val(), user: $user.val() };
           
-            this.postsRepository.addComment(newComment, postIndex);
+            this.postsRepository.addComment(newComment, postIndex).then(()=> {
             this.postsRenderer.renderComments(this.postsRepository.posts, postIndex);
             $comment.val("");
             $user.val("");
+            })
           });
 
     }
