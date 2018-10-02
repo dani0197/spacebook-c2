@@ -1,3 +1,5 @@
+// import PostsRenderer from "./posts-renderer";
+
     /**
      * @class Responsible for storing and manipulating Spacebook posts, in-memory
      */
@@ -6,8 +8,17 @@ class PostsRepository {
         this.posts = [];
     }
 
+    getPosts() {
+        return $.get('/posts').then((data)=>{
+            this.posts = data;
+        })
+    }
+
     addPost(postText) {
-        this.posts.push({ text: postText, comments: [] });
+        let post = { text: postText, comments: [] }
+        return $.post('/posts', post).then((data)=>{
+            this.posts.push(data);
+        })
     }
 
     removePost(index) {

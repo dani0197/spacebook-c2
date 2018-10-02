@@ -5,6 +5,12 @@ class EventsHandler {
         this.$posts = $(".posts");
     }
 
+    onLoad(){
+        this.postsRepository.getPosts().then(()=>{
+            this.postsRenderer.renderPosts(this.postsRepository.posts)
+        })
+    }
+
     registerAddPost() {
         $('#addpost').on('click', () => {
             let $input = $("#postText");

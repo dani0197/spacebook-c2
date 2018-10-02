@@ -8,13 +8,16 @@ mongoose.connect('mongodb://localhost/spacebookDB', function() {
   console.log("DB connection established!!!");
 })
 
+const postsApi = require('./routes/postsApi');
 var Post = require('./models/postModel');
+var Comment = require('./models/commentModel');
 
 var app = express();
 app.use(express.static('public'));
 app.use(express.static('node_modules'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/', postsApi);
 
 
 // You will need to create 5 server routes
@@ -29,3 +32,5 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.listen(SERVER_PORT, () => {
   console.log("Server started on port " + SERVER_PORT);
 });
+
+
