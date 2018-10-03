@@ -1,17 +1,28 @@
 const router = require('express').Router();
-const comment = require('../models/commentModel');
+const Comment = require('../models/commentModel');
+const Post = require('../models/postModel');
 
-router.post('/posts/:id/comments', function(req, res) {
-    comment.create(req.body, function(err, data) {
-        if(err) {
+router.post('/posts/:id/comments', function (req, res) {
+    Comment.create(req.body, function (err, newComment) {
+        if (err) {
             console.error(err)
             res.status(500).send(err)
         } else {
-            res.send(data)
-            post.findByIdAndUpdate(id, {})
+            let id = req.params.id;
+            Post.update(
+                { _id: id },
+                { $push: {comments: newComment}},
+                (err, newComment)=> {
+                    if (err) {
+                        console.error(err)
+                        res.status(500).send(err)
+                    } else {
+                        res.send(newComment)
+                    }
+                }
+            );
         }
     })
-    let id = req.params.id;
 })
 
 module.exports = router

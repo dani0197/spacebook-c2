@@ -5,10 +5,9 @@ class EventsHandler {
         this.$posts = $(".posts");
     }
 
-    onLoad(){
-        this.postsRepository.getPosts().then(()=>{
+    async onLoad(){
+       await  this.postsRepository.getPosts()
             this.postsRenderer.renderPosts(this.postsRepository.posts)
-        })
     }
 
     registerAddPost() {
