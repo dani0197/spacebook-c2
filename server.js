@@ -9,8 +9,9 @@ mongoose.connect('mongodb://localhost/spacebookDB', function() {
 })
 
 const postsApi = require('./routes/postsApi');
+const commentsApi = require('./routes/commentsApi')
 var Post = require('./models/postModel');
-var Comment = require('./models/commentModel');
+var comment = require('./models/commentModel');
 
 var app = express();
 app.use(express.static('public'));
@@ -18,6 +19,7 @@ app.use(express.static('node_modules'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', postsApi);
+app.use('/', commentsApi);
 
 
 // You will need to create 5 server routes

@@ -33,7 +33,7 @@ class PostsRepository {
     
     addComment(newComment, postIndex) {
         let id = this.posts[postIndex]._id
-        return $.post('/posts/' + id).then((data)=> {
+        return $.post('/posts/' + id + '/comments', newComment).then((data)=> {
             this.posts[postIndex].comments.push(newComment);
         })
     };
