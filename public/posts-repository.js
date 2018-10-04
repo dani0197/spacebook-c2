@@ -27,20 +27,27 @@ class PostsRepository {
            method: 'DELETE',
            url: '/posts/' + id,
        }).then((data)=>{
-           this.posts.splice(index, 1);
+           this.posts = data;
        })
     }
     
     addComment(newComment, postIndex) {
         let id = this.posts[postIndex]._id
         return $.post('/posts/' + id + '/comments', newComment).then((data)=> {
-            this.posts[postIndex].comments.push(newComment);
+            this.posts = data;
         })
     };
 
     deleteComment(postIndex, commentIndex) {
-        this.posts[postIndex].comments.splice(commentIndex, 1);
-      };
+        let postId = this.posts[postIndex]._id
+        let commentId = this.posts[postIndex].comments[commentIndex]._id
+        return $.ajax({
+            method: 'DELETE',
+            url: '/posts/' + postId + '/comments/' + commentId
+        }).then((data)=>{
+            this.posts = data;
+        })
+    };
 }
 
 export default PostsRepository
